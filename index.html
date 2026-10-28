@@ -85,6 +85,8 @@
       .content { padding: 96px 0 120px; }
     }
     aside { padding: 64px 0 32px; }
+    .wrap > *, .grid > li, .stats > li, .off > li { min-width: 0; }
+    .lead, .card { overflow-wrap: anywhere; }
     .content { padding: 0 0 96px; }
 
     .mono { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.04em; }
@@ -290,7 +292,7 @@
     </aside>
 
     <div class="content">
-      <section id="now" class="reveal">
+      <section id="now">
         <div class="lead">
           <div class="inner">
             <h2><span class="num">00</span> Now</h2>
