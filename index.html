@@ -5,285 +5,498 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bojro Das</title>
   <meta name="description" content="Bojro Das. Founder of Physical Interp Labs, bringing mechanistic interpretability to physical AI. Mathematics and Computer Science at Cornell, class of 2028. Author of Inherited Heads (arXiv:2609.14174).">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231f4e79'/%3E%3Ctext x='32' y='43' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='700' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#0b1120">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1120'/%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='none' stroke='%235eead4' stroke-width='3'/%3E%3Ctext x='32' y='44' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='700' fill='%235eead4' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
-      --fg: #1a1a1a;
-      --muted: #5a5a5a;
-      --rule: #e4e4e4;
-      --accent: #1f4e79;
-      --panel: #f3f6fa;
-      --card: #fafafa;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #111111;
-        --fg: #e8e8e8;
-        --muted: #a3a3a3;
-        --rule: #2c2c2c;
-        --accent: #8fb6dc;
-        --panel: #181d24;
-        --card: #181818;
-      }
+      --bg: #0b1120;
+      --bg-2: #0f172a;
+      --fg: #cbd5e1;
+      --fg-strong: #f1f5f9;
+      --muted: #8b9bb4;
+      --rule: rgba(148, 163, 184, 0.14);
+      --accent: #5eead4;
+      --accent-dim: rgba(94, 234, 212, 0.12);
+      --card: rgba(30, 41, 59, 0.35);
+      --card-hover: rgba(30, 41, 59, 0.6);
+      --glow: rgba(94, 234, 212, 0.08);
+      --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
     body {
       margin: 0;
       background: var(--bg);
       color: var(--fg);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      font-size: 17px;
-      line-height: 1.6;
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    main { max-width: 760px; margin: 0 auto; padding: 40px 16px 64px; }
-    a { color: var(--accent); }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 70% 50% at 50% 0%, #000 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 0%, #000 0%, transparent 70%);
+      opacity: 0.6;
+    }
+    #spot {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 30%), var(--glow), transparent 60%);
+      transition: background 0.15s ease;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--accent); }
     p { margin: 0 0 14px; }
-    ul { padding-left: 22px; margin: 0 0 14px; }
-    li { margin-bottom: 8px; }
-    h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 4px; }
-    h2 {
-      font-size: 1.25rem;
-      margin: 44px 0 14px;
-      padding-top: 18px;
-      border-top: 1px solid var(--rule);
-    }
-    h3 { font-size: 1.05rem; margin: 0 0 4px; }
-    .top {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 8px 16px;
-      margin-bottom: 28px;
-    }
-    .top .sub { color: var(--muted); margin: 0; }
-    .links { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.95rem; }
-    .lead {
-      background: var(--panel);
-      border-left: 4px solid var(--accent);
-      border-radius: 6px;
-      padding: 20px 22px;
-      margin-bottom: 8px;
-    }
-    .lead .kicker {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      margin-bottom: 2px;
-    }
-    .lead h2 { border: 0; padding: 0; margin: 0 0 2px; font-size: 1.5rem; }
-    .lead .one { font-size: 1.1rem; margin-bottom: 12px; }
-    .paper {
-      border-top: 1px solid var(--rule);
-      margin-top: 14px;
-      padding-top: 14px;
-    }
-    .paper .t { font-weight: 600; margin-bottom: 2px; }
-    .paper .m { font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }
-    .paper p:last-child { margin-bottom: 0; }
-    .grid {
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin: 0 0 14px;
-      padding: 0;
-      list-style: none;
+      grid-template-columns: 1fr;
+      gap: 0 56px;
     }
-    .grid li {
-      margin: 0;
-      padding: 14px 16px;
-      border: 1px solid var(--rule);
-      border-radius: 8px;
-      background: var(--card);
+    @media (min-width: 1024px) {
+      .wrap { grid-template-columns: 420px 1fr; }
+      aside { position: sticky; top: 0; height: 100vh; padding: 96px 0; display: flex; flex-direction: column; justify-content: space-between; }
+      .content { padding: 96px 0 120px; }
     }
-    .grid .tag {
-      display: block;
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 4px;
+    aside { padding: 64px 0 32px; }
+    .content { padding: 0 0 96px; }
+
+    .mono { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.04em; }
+    .eyebrow { color: var(--accent); text-transform: uppercase; margin-bottom: 14px; }
+    .eyebrow .dot {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); margin-right: 8px; vertical-align: 1px;
+      box-shadow: 0 0 0 0 rgba(94,234,212,0.6);
+      animation: pulse 2.2s infinite;
     }
-    .grid p { font-size: 0.95rem; margin: 0; }
-    .grid .repo { font-size: 0.85rem; margin-top: 6px; }
-    .hl { list-style: none; padding: 0; }
-    .hl li {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--rule);
-      margin: 0;
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(94,234,212,0.55); }
+      70% { box-shadow: 0 0 0 10px rgba(94,234,212,0); }
+      100% { box-shadow: 0 0 0 0 rgba(94,234,212,0); }
     }
-    .hl li:last-child { border-bottom: 0; }
-    .hl .when {
-      display: inline-block;
-      min-width: 120px;
-      color: var(--muted);
-      font-size: 0.9rem;
+    h1 {
+      font-size: clamp(2.6rem, 6vw, 3.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--fg-strong);
+      margin: 0 0 10px;
     }
-    .note { color: var(--muted); font-size: 0.95rem; }
-    footer {
-      margin-top: 48px;
-      padding-top: 16px;
-      border-top: 1px solid var(--rule);
-      font-size: 0.9rem;
-      color: var(--muted);
+    .role { font-size: 1.15rem; color: var(--fg-strong); font-weight: 500; margin: 0 0 12px; letter-spacing: -0.01em; }
+    .blurb { color: var(--muted); max-width: 34ch; margin-bottom: 36px; }
+
+    nav.side { display: none; }
+    @media (min-width: 1024px) { nav.side { display: block; } }
+    nav.side a {
+      display: flex; align-items: center; gap: 14px;
+      padding: 8px 0; color: var(--muted);
+      font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      transition: color 0.2s;
     }
-    @media (max-width: 560px) {
-      .grid { grid-template-columns: 1fr; }
-      .hl .when { display: block; min-width: 0; }
+    nav.side a::before {
+      content: ""; display: block; width: 28px; height: 1px; background: var(--muted);
+      transition: width 0.25s ease, background 0.25s ease;
     }
+    nav.side a:hover, nav.side a.active { color: var(--fg-strong); }
+    nav.side a:hover::before, nav.side a.active::before { width: 56px; background: var(--accent); }
+
+    .social { display: flex; gap: 18px; margin-top: 28px; }
+    .social a { color: var(--muted); display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; transition: color 0.2s, transform 0.2s; }
+    .social a:hover { color: var(--accent); transform: translateY(-2px); }
+    .social svg { width: 18px; height: 18px; fill: currentColor; }
+
+    section { margin-bottom: 88px; scroll-margin-top: 80px; }
+    h2 {
+      display: flex; align-items: center; gap: 14px;
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-strong);
+      margin: 0 0 24px;
+    }
+    h2 .num { color: var(--accent); }
+    h2::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+    h3 { font-size: 1.05rem; font-weight: 600; color: var(--fg-strong); margin: 0 0 6px; letter-spacing: -0.01em; }
+
+    .lead {
+      position: relative;
+      border-radius: 14px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(94,234,212,0.5), rgba(94,234,212,0.05) 40%, rgba(129,140,248,0.35));
+      margin-bottom: 0;
+    }
+    .lead .inner {
+      border-radius: 13px;
+      background: linear-gradient(180deg, rgba(15,23,42,0.96), rgba(11,17,32,0.98));
+      padding: 30px 32px;
+    }
+    .lead h2 { margin: 0 0 6px; }
+    .lead h2::after { display: none; }
+    .lead .title {
+      font-size: clamp(1.7rem, 3.4vw, 2.2rem); font-weight: 700; letter-spacing: -0.03em;
+      color: var(--fg-strong); margin: 0 0 4px;
+    }
+    .lead .title a:hover { color: var(--accent); }
+    .lead .one { font-size: 1.15rem; color: var(--accent); margin: 0 0 16px; font-weight: 500; }
+    .lead .desc { color: var(--fg); margin-bottom: 18px; }
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+    .btn {
+      font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.04em;
+      padding: 9px 14px; border-radius: 8px; border: 1px solid var(--rule);
+      color: var(--fg-strong); background: rgba(255,255,255,0.02);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .btn:hover { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); transform: translateY(-1px); }
+    .btn.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 500; }
+    .btn.primary:hover { background: #99f6e4; color: var(--bg); }
+    .paper { border-top: 1px solid var(--rule); padding-top: 22px; }
+    .paper .label { color: var(--muted); margin-bottom: 8px; }
+    .paper .t { font-weight: 600; color: var(--fg-strong); font-size: 1.02rem; line-height: 1.45; margin-bottom: 6px; }
+    .paper .t a:hover { color: var(--accent); }
+    .paper .m { color: var(--muted); font-size: 0.85rem; margin-bottom: 12px; }
+    .paper .m a { color: var(--accent); }
+    .paper .m a:hover { text-decoration: underline; }
+    .paper .r { margin: 0; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0 0; padding: 0; list-style: none; }
+    .stats li { padding: 12px 14px; border-radius: 10px; background: rgba(94,234,212,0.05); border: 1px solid var(--rule); }
+    .stats .n { display: block; font-family: var(--mono); font-size: 1.35rem; color: var(--accent); line-height: 1.1; margin-bottom: 4px; }
+    .stats .l { display: block; font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+    @media (max-width: 560px) { .stats { grid-template-columns: 1fr; } .lead .inner { padding: 22px 20px; } }
+
+    .about p { max-width: 64ch; }
+    .about strong { color: var(--fg-strong); font-weight: 600; }
+    .about a { color: var(--accent); }
+    .about a:hover { text-decoration: underline; }
+
+    .timeline { list-style: none; padding: 0; margin: 0; position: relative; }
+    .timeline::before { content: ""; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px; background: var(--rule); }
+    .timeline li { position: relative; padding: 0 0 22px 32px; }
+    .timeline li::before {
+      content: ""; position: absolute; left: 0; top: 9px; width: 11px; height: 11px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--muted); transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .timeline li:hover::before { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-dim); }
+    .timeline .when { display: block; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+    .timeline strong { color: var(--fg-strong); font-weight: 600; }
+    .timeline a { color: var(--accent); }
+    .timeline a:hover { text-decoration: underline; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; list-style: none; padding: 0; margin: 0; }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    .card {
+      position: relative; display: flex; flex-direction: column;
+      padding: 20px 20px 18px; border-radius: 12px;
+      background: var(--card); border: 1px solid var(--rule);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      background: var(--card-hover);
+      border-color: rgba(94,234,212,0.35);
+      box-shadow: 0 18px 40px -24px rgba(0,0,0,0.8), 0 0 0 1px rgba(94,234,212,0.08) inset;
+    }
+    .card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .card .tag {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+      padding: 3px 8px; border-radius: 999px; color: var(--accent); background: var(--accent-dim);
+    }
+    .card h3 a { display: inline-flex; align-items: center; gap: 6px; }
+    .card h3 a::after {
+      content: ""; display: inline-block; width: 10px; height: 10px;
+      border-right: 1.5px solid currentColor; border-top: 1.5px solid currentColor;
+      transform: rotate(45deg) translate(-2px, 2px); opacity: 0.6;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .card:hover h3 a::after { transform: rotate(45deg) translate(1px, -1px); opacity: 1; }
+    .card:hover h3 a { color: var(--accent); }
+    .card p { font-size: 0.93rem; color: var(--fg); margin: 0; flex: 1; }
+    .card .repo { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); margin-top: 14px; flex: 0; }
+    .card .repo a:hover { color: var(--accent); }
+    .card .stretch { position: absolute; inset: 0; border-radius: 12px; z-index: 0; }
+    .card > * { position: relative; z-index: 1; }
+    .card .stretch { z-index: 0; }
+
+    .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 720px) { .skills { grid-template-columns: 1fr; } }
+    .skills .k { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { font-size: 0.82rem; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--rule); color: var(--fg); background: rgba(255,255,255,0.02); transition: border-color 0.2s, color 0.2s; }
+    .chip:hover { border-color: var(--accent); color: var(--accent); }
+
+    .off { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; list-style: none; padding: 0; margin: 0; }
+    @media (max-width: 720px) { .off { grid-template-columns: 1fr; } }
+    .off li { padding: 18px; border-radius: 12px; border: 1px solid var(--rule); background: var(--card); }
+    .off .big { display: block; font-family: var(--mono); font-size: 1.6rem; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .off .big.small { font-size: 1.05rem; font-family: var(--sans); font-weight: 600; color: var(--fg-strong); }
+    .off .s { font-size: 0.85rem; color: var(--muted); }
+
+    footer { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); letter-spacing: 0.04em; padding-top: 24px; border-top: 1px solid var(--rule); }
+    footer a { color: var(--fg); }
+    footer a:hover { color: var(--accent); }
+
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
   </style>
 </head>
 <body>
-  <main>
-    <div class="top">
+  <div id="spot" aria-hidden="true"></div>
+  <div class="wrap">
+    <aside>
       <div>
+        <div class="mono eyebrow"><span class="dot"></span>Now building Physical Interp Labs</div>
         <h1>Bojro Das</h1>
-        <p class="sub">Mathematics &amp; Computer Science, Cornell University, class of 2028</p>
+        <p class="role">Interpretability for machines that move.</p>
+        <p class="blurb">Mathematics &amp; Computer Science at Cornell, class of 2028. Mechanistic interpretability researcher, drone autonomy engineer, former VEX world-championship competitor.</p>
+        <nav class="side" aria-label="Sections">
+          <a href="#now">Now</a>
+          <a href="#about">About</a>
+          <a href="#highlights">Highlights</a>
+          <a href="#research">Research</a>
+          <a href="#robotics">Robotics</a>
+          <a href="#projects">Projects</a>
+          <a href="#offclock">Off the clock</a>
+        </nav>
       </div>
-      <nav class="links">
-        <a href="https://github.com/bojro">GitHub</a>
-        <a href="https://linkedin.com/in/bojro">LinkedIn</a>
-        <a href="https://arxiv.org/a/das_b_2">arXiv</a>
-        <a href="mailto:bd463@cornell.edu">Email</a>
-      </nav>
+      <div class="social">
+        <a href="https://github.com/bojro" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>GitHub</a>
+        <a href="https://linkedin.com/in/bojro" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.4 20.5h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.3zM5.3 7.4a2 2 0 1 1 0-4.1 2 2 0 0 1 0 4.1zM7.1 20.5H3.6V9h3.5v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.5c0 1 .8 1.8 1.8 1.8h20.4c1 0 1.8-.8 1.8-1.8V1.7C24 .8 23.2 0 22.2 0z"/></svg>LinkedIn</a>
+        <a href="https://arxiv.org/abs/2609.14174v1" aria-label="arXiv"><svg viewBox="0 0 24 24"><path d="M4 3h16v2H4zm0 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h10v2H4z"/></svg>arXiv</a>
+        <a href="mailto:bd463@cornell.edu" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M2 4h20v16H2zm2 2v.5l8 5 8-5V6zm0 2.9V18h16V8.9l-8 5z"/></svg>Email</a>
+      </div>
+    </aside>
+
+    <div class="content">
+      <section id="now" class="reveal">
+        <div class="lead">
+          <div class="inner">
+            <h2><span class="num">00</span> Now</h2>
+            <p class="title"><a href="https://bojro.github.io/physical-interp/">Physical Interp Labs</a></p>
+            <p class="one">Bringing mechanistic interpretability to physical AI.</p>
+            <p class="desc">Early-stage research on the internals of neural networks that act in the physical world: robot policies, vision-language-action models, and world models for robotics and drones. The goal is to find the features and circuits that drive an action, and to use them to predict, steer, and verify behavior before it reaches hardware.</p>
+            <div class="btns">
+              <a class="btn primary" href="https://bojro.github.io/physical-interp/">Project page</a>
+              <a class="btn" href="https://github.com/bojro/physical-interp">Repository</a>
+            </div>
+            <div class="paper">
+              <div class="mono label">Latest paper</div>
+              <div class="t"><a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads: Audio language models track speakers with their text backbone's attention, and an attention-mass ranking retrieves a different set</a></div>
+              <div class="m">Bojro Das &middot; arXiv:2609.14174 &middot; September 2026 &middot; sole author &middot; <a href="https://github.com/bojro/inherited-heads">code and results</a></div>
+              <p class="r">Adding a fixed bias to fewer than a tenth of an audio language model's attention heads, with no training, steers which of six speakers it describes on 90.7% to 99.0% of trials, and heads selected on the text-only backbone alone, with no audio involved, do the same on 80.8% to 95.0% of trials.</p>
+              <ul class="stats">
+                <li><span class="n">90.7&ndash;99.0%</span><span class="l">of trials steered to the chosen speaker</span></li>
+                <li><span class="n">80.8&ndash;95.0%</span><span class="l">steered using heads ranked on the text model alone</span></li>
+                <li><span class="n">&lt;10%</span><span class="l">of the model's heads needed</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="about reveal">
+        <h2><span class="num">01</span> About</h2>
+        <p>I study Mathematics and Computer Science at Cornell University (class of 2028). I work on mechanistic interpretability at Cornell's Math + AI Lab, where I wrote Inherited Heads, and on autonomy as a software engineer on <strong>Cornell University Autonomous Drone (CUAD)</strong>, where I built the real-time stereo-depth obstacle-localization pipeline for the IARC competition and a gesture-to-flight-command classifier, both deployed as ROS 2 nodes.</p>
+        <p>Before Cornell I spent years in VEX Robotics with team 871X, and led the team to the 1st seed at the VEX Robotics World Championship. Robotics and interpretability are the two things I have spent the most time on. <a href="https://bojro.github.io/physical-interp/">Physical Interp Labs</a> is where they meet.</p>
+        <p>In summer 2026 I was a software engineer intern at Global Key Advisors in San Francisco, where I owned the Python pipeline classifying 1.4M+ SEC filings into 101 event categories, raised GPU utilization from 34% to 96% with batched PyTorch encoding, and built a Neo4j knowledge graph with 1.5M+ relationships behind a citation-verified chatbot.</p>
+      </section>
+
+      <section id="highlights" class="reveal">
+        <h2><span class="num">02</span> Highlights</h2>
+        <ul class="timeline">
+          <li><span class="when">September 2026</span>Published <a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads</a> on arXiv as sole author.</li>
+          <li><span class="when">September 2026</span><strong>Anduril AI Grand Prix</strong>: one of 15 teams selected from over 3,000 for the in-person autonomous drone racing qualifier in Santa Ana. Trained the PPO flight policy, fixed the sim-to-real faults through hardware-in-the-loop testing, and built the onboard gate detector.</li>
+          <li><span class="when">August 2026</span>Attended <strong>NEMI 2026</strong>, the third New England Mechanistic Interpretability Workshop, at Boston University.</li>
+          <li><span class="when">2026</span>Participant in <strong>Y Combinator Startup School</strong>. Built <a href="https://github.com/bojro/c0mpiled-11-hackathon">Debrief</a> at the c0mpiled-11 Startup School Hackathon in San Francisco.</li>
+          <li><span class="when">2026</span>Shipped <strong>Gait</strong>, an iOS app for horse owners, solo to the App Store in under four months, reaching a $2.4K ARR run rate within two weeks of launch.</li>
+          <li><span class="when">VEX Robotics</span>Led team 871X to the 1st seed at the VEX Robotics World Championship.</li>
+        </ul>
+      </section>
+
+      <section id="research" class="reveal">
+        <h2><span class="num">03</span> Research</h2>
+        <ul class="grid">
+          <li class="card">
+            <div class="tags"><span class="tag">mech interp</span><span class="tag">audio LMs</span><span class="tag">PyTorch</span></div>
+            <h3><a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads</a></h3>
+            <p>Three audio language models (Qwen2-Audio-7B, Ultravox-8B, SALMONN-13B) analysed at head level against their text backbones. The harness swept 12,000 configurations in 4-bit on consumer GPUs, with a build check that rejects any figure not traceable to a run.</p>
+            <div class="repo"><a href="https://github.com/bojro/inherited-heads">bojro/inherited-heads</a></div>
+          </li>
+          <li class="card">
+            <div class="tags"><span class="tag">mech interp</span><span class="tag">physical AI</span><span class="tag">VLA</span></div>
+            <h3><a href="https://bojro.github.io/physical-interp/">Physical Interp Labs</a></h3>
+            <p>Applying feature discovery, circuit analysis, and steering to robot policies, VLA models, and world models. Planned and ongoing work, not results.</p>
+            <div class="repo"><a href="https://github.com/bojro/physical-interp">bojro/physical-interp</a></div>
+          </li>
+          <li class="card">
+            <div class="tags"><span class="tag">causal abstraction</span><span class="tag">MIB</span></div>
+            <h3><a href="https://github.com/bojro/plot-mib-submissions">PLOT-DAS on MIB</a></h3>
+            <p>Independent evaluation of PLOT-DAS, a published method for locating where a language model represents a causal variable, on the MIB Causal Variable Localization track. Confirmed its 10x to 25x compute reduction with a 126-test suite on one 8 GB GPU.</p>
+            <div class="repo"><a href="https://github.com/bojro/plot-mib-submissions">bojro/plot-mib-submissions</a></div>
+          </li>
+          <li class="card">
+            <div class="tags"><span class="tag">causal abstraction</span><span class="tag">optimal transport</span></div>
+            <h3><a href="https://github.com/bojro/causal-abstractions">Causal Abstractions OT</a></h3>
+            <p>A script-first framework for causal abstraction experiments, comparing Gromov-Wasserstein, OT, fused GW, and DAS on the same held-out counterfactual splits across symbolic tasks.</p>
+            <div class="repo"><a href="https://github.com/bojro/causal-abstractions">bojro/causal-abstractions</a></div>
+          </li>
+        </ul>
+      </section>
+
+      <section id="robotics" class="reveal">
+        <h2><span class="num">04</span> Robotics</h2>
+        <ul class="grid">
+          <li class="card">
+            <div class="tags"><span class="tag">RL / PPO</span><span class="tag">Isaac Lab</span><span class="tag">sim-to-real</span></div>
+            <h3><a href="https://github.com/bojro/aigp-sim">AI Grand Prix: flight policy</a></h3>
+            <p>PPO policy trained across 4,096 parallel Isaac Lab simulations to fly a ten-gate course from projected gate corners and IMU, emitting collective thrust and body rates to a Betaflight controller over MSP. Hardware-in-the-loop testing found a reversed pitch axis and stick commands scaled 0.62x to 2.4x, then the policy was retrained for the link's real 40 Hz. Written up as a team paper in the repo.</p>
+            <div class="repo"><a href="https://github.com/bojro/aigp-sim">bojro/aigp-sim</a></div>
+          </li>
+          <li class="card">
+            <div class="tags"><span class="tag">perception</span><span class="tag">YOLO pose</span><span class="tag">Jetson Orin NX</span></div>
+            <h3><a href="https://github.com/bojro/aigp-perception">AI Grand Prix: gate detector</a></h3>
+            <p>Geometric auto-labelling of all eight gate corners merged with human labels, training the YOLOv8n-pose models that flew. Detected every gate the drone was about to fly through on unseen images, up from 72%, at 36 fps on the aircraft's Jetson.</p>
+            <div class="repo"><a href="https://github.com/bojro/aigp-perception">bojro/aigp-perception</a></div>
+          </li>
+          <li class="card">
+            <div class="tags"><span class="tag">computer vision</span><span class="tag">ROS 2</span><span class="tag">CUAD</span></div>
+            <h3>Obstacle localization and gesture control</h3>
+            <p>Real-time OAK-D stereo-depth obstacle localization for the IARC competition, georeferenced to world frame via EKF pose and published to ROS 2 at 15 Hz with dropped-frame fallbacks. GestureNet, an MLP over 166 MediaPipe landmark features, maps hand gestures to flight commands for hands-free bringup.</p>
+          </li>
+          <li class="card">
+            <div class="tags"><span class="tag">Go</span><span class="tag">MQTT</span><span class="tag">PostgreSQL</span><span class="tag">AWS EC2</span></div>
+            <h3><a href="https://github.com/bojro/drone-telemetry-gateway">Drone telemetry gateway</a></h3>
+            <p>Edge ingestion from 1,000 simulated drones over MQTT through a hand-built bounded queue and 16-worker pool. Sustained 5,000 writes per second at 3.4 ms average latency on a 2-vCPU EC2 instance, with zero accepted-message loss through a measured database outage.</p>
+            <div class="repo"><a href="https://github.com/bojro/drone-telemetry-gateway">bojro/drone-telemetry-gateway</a></div>
+          </li>
+        </ul>
+      </section>
+
+      <section id="projects" class="reveal">
+        <h2><span class="num">05</span> Projects</h2>
+        <ul class="grid">
+          <li class="card">
+            <div class="tags"><span class="tag">iOS</span><span class="tag">React Native</span><span class="tag">on-device ML</span></div>
+            <h3>Gait</h3>
+            <p>An app for horse owners, live on the App Store. On-device motion classification auto-logs ride gaits from 50 Hz accelerometer data. Shipped solo in under four months.</p>
+          </li>
+          <li class="card">
+            <div class="tags"><span class="tag">hackathon</span><span class="tag">voice agent</span><span class="tag">YC Startup School</span></div>
+            <h3><a href="https://github.com/bojro/c0mpiled-11-hackathon">Debrief</a></h3>
+            <p>An AI agent that interviews every applicant like a bar raiser, verifying claims against GitHub while they talk, and hands the recruiter a resume where every highlight is backed by audio. Built in about three hours at c0mpiled-11 in San Francisco.</p>
+            <div class="repo"><a href="https://github.com/bojro/c0mpiled-11-hackathon">bojro/c0mpiled-11-hackathon</a></div>
+          </li>
+          <li class="card">
+            <div class="tags"><span class="tag">real-time AI</span><span class="tag">healthcare</span></div>
+            <h3><a href="https://github.com/bojro/MedTranslate">MedTranslate</a></h3>
+            <p>A companion for doctor visits that translates medical jargon into plain language as the conversation happens and builds a structured personal health record from it.</p>
+            <div class="repo"><a href="https://github.com/bojro/MedTranslate">bojro/MedTranslate</a></div>
+          </li>
+          <li class="card">
+            <div class="tags"><span class="tag">Chrome extension</span><span class="tag">TypeScript</span></div>
+            <h3><a href="https://github.com/bojro/Orderly-AI">Orderly AI</a></h3>
+            <p>AI tab grouping with dynamic category discovery, one-click undo, and aggressive caching to keep API calls low. Never closes a tab.</p>
+            <div class="repo"><a href="https://github.com/bojro/Orderly-AI">bojro/Orderly-AI</a></div>
+          </li>
+          <li class="card">
+            <div class="tags"><span class="tag">SwiftUI</span><span class="tag">iOS</span></div>
+            <h3><a href="https://github.com/bojro/BigRedBudget">BigRedBudget</a></h3>
+            <p>Turns a Cornell BRB dining balance into a real-time spending decision tool. Local-only.</p>
+            <div class="repo"><a href="https://github.com/bojro/BigRedBudget">bojro/BigRedBudget</a></div>
+          </li>
+          <li class="card">
+            <div class="tags"><span class="tag">GitHub Actions</span><span class="tag">Node</span></div>
+            <h3><a href="https://github.com/bojro/internship-tracker">Internship tracker</a></h3>
+            <p>Polls community internship trackers every 30 minutes, corroborates across sources, and pushes new postings from a watchlist of 50 firms to Discord, ntfy, and email.</p>
+            <div class="repo"><a href="https://github.com/bojro/internship-tracker">bojro/internship-tracker</a></div>
+          </li>
+        </ul>
+      </section>
+
+      <section id="skills" class="reveal">
+        <h2><span class="num">06</span> Tools</h2>
+        <div class="skills">
+          <div>
+            <div class="k">Languages</div>
+            <div class="chips"><span class="chip">Python</span><span class="chip">Go</span><span class="chip">C++</span><span class="chip">Java</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">SQL</span><span class="chip">Swift</span></div>
+          </div>
+          <div>
+            <div class="k">ML</div>
+            <div class="chips"><span class="chip">PyTorch</span><span class="chip">Hugging Face</span><span class="chip">PPO / skrl</span><span class="chip">Isaac Lab</span><span class="chip">YOLO</span><span class="chip">ONNX</span><span class="chip">NumPy</span><span class="chip">scikit-learn</span></div>
+          </div>
+          <div>
+            <div class="k">Systems</div>
+            <div class="chips"><span class="chip">ROS 2</span><span class="chip">Docker</span><span class="chip">PostgreSQL</span><span class="chip">Neo4j</span><span class="chip">MQTT</span><span class="chip">Prometheus</span><span class="chip">AWS EC2</span><span class="chip">Linux</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="offclock" class="reveal">
+        <h2><span class="num">07</span> Off the clock</h2>
+        <ul class="off">
+          <li><span class="big small">Gym</span><span class="s">Most days.</span></li>
+          <li><span class="big small">Vinland Saga</span><span class="s">Currently watching.</span></li>
+          <li><span class="big">91</span><span class="s">Zetamac score. Challenges welcome.</span></li>
+        </ul>
+      </section>
+
+      <footer>
+        &copy; 2026 Bojro Das &middot; <a href="https://github.com/bojro/bojro.github.io">source</a> &middot; <a href="mailto:bd463@cornell.edu">bd463@cornell.edu</a>
+      </footer>
     </div>
+  </div>
 
-    <section class="lead">
-      <div class="kicker">Now building</div>
-      <h2><a href="https://bojro.github.io/physical-interp/">Physical Interp Labs</a></h2>
-      <p class="one">Bringing mechanistic interpretability to physical AI.</p>
-      <p>Early-stage research on the internals of neural networks that act in the physical world: robot policies, vision-language-action models, and world models for robotics and drones. The goal is to find the features and circuits that drive an action, and to use them to predict, steer, and verify behavior before it reaches hardware. <a href="https://bojro.github.io/physical-interp/">Project page</a> &middot; <a href="https://github.com/bojro/physical-interp">Repository</a></p>
-      <div class="paper">
-        <div class="t"><a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads: Audio language models track speakers with their text backbone's attention, and an attention-mass ranking retrieves a different set</a></div>
-        <div class="m">Bojro Das. arXiv:2609.14174, September 2026. Sole-authored preprint. <a href="https://github.com/bojro/inherited-heads">Code and results</a></div>
-        <p>Adding a fixed bias to fewer than a tenth of an audio language model's attention heads, with no training, steers which of six speakers it describes on 90.7% to 99.0% of trials, and heads selected on the text-only backbone alone, with no audio involved, do the same on 80.8% to 95.0% of trials.</p>
-      </div>
-    </section>
-
-    <h2 id="about">About</h2>
-    <p>I study Mathematics and Computer Science at Cornell University (class of 2028). I work on mechanistic interpretability at Cornell's Math + AI Lab, where I wrote Inherited Heads, and on autonomy as a software engineer on <strong>Cornell University Autonomous Drone (CUAD)</strong>, where I built the real-time stereo-depth obstacle-localization pipeline for the IARC competition and a gesture-to-flight-command classifier, both deployed as ROS 2 nodes.</p>
-    <p>Before Cornell I spent years in VEX Robotics with team 871X, and led the team to the 1st seed at the VEX Robotics World Championship. Robotics and interpretability are the two things I have spent the most time on. Physical Interp Labs is where they meet.</p>
-    <p>In summer 2026 I was a software engineer intern at Global Key Advisors in San Francisco, where I owned the Python pipeline classifying 1.4M+ SEC filings into 101 event categories, raised GPU utilization from 34% to 96% with batched PyTorch encoding, and built a Neo4j knowledge graph with 1.5M+ relationships behind a citation-verified chatbot.</p>
-
-    <h2 id="highlights">Highlights</h2>
-    <ul class="hl">
-      <li><span class="when">September 2026</span> Published <a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads</a> on arXiv as sole author.</li>
-      <li><span class="when">September 2026</span> <strong>Anduril AI Grand Prix</strong>: one of 15 teams selected from over 3,000 for the in-person autonomous drone racing qualifier in Santa Ana. Trained the PPO flight policy, fixed the sim-to-real faults through hardware-in-the-loop testing, and built the onboard gate detector.</li>
-      <li><span class="when">August 2026</span> Attended <strong>NEMI 2026</strong>, the third New England Mechanistic Interpretability Workshop, at Boston University.</li>
-      <li><span class="when">2026</span> Participant in <strong>Y Combinator Startup School</strong>. Built <a href="https://github.com/bojro/c0mpiled-11-hackathon">Debrief</a> at the c0mpiled-11 Startup School Hackathon in San Francisco.</li>
-      <li><span class="when">2026</span> Shipped <strong>Gait</strong>, an iOS app for horse owners, solo to the App Store in under four months, reaching a $2.4K ARR run rate within two weeks of launch.</li>
-      <li><span class="when">VEX Robotics</span> Led team 871X to the 1st seed at the VEX Robotics World Championship.</li>
-    </ul>
-
-    <h2 id="research">Research</h2>
-    <ul class="grid">
-      <li>
-        <span class="tag">Mechanistic interpretability &middot; audio language models</span>
-        <h3><a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads</a></h3>
-        <p>Three audio language models (Qwen2-Audio-7B, Ultravox-8B, SALMONN-13B) analysed at head level against their text backbones. The PyTorch harness swept 12,000 configurations in 4-bit on consumer GPUs, with a build check that rejects any figure not traceable to a run.</p>
-        <p class="repo"><a href="https://github.com/bojro/inherited-heads">bojro/inherited-heads</a></p>
-      </li>
-      <li>
-        <span class="tag">Mechanistic interpretability &middot; physical AI</span>
-        <h3><a href="https://bojro.github.io/physical-interp/">Physical Interp Labs</a></h3>
-        <p>Applying feature discovery, circuit analysis, and steering to robot policies, VLA models, and world models. Planned and ongoing work, not results.</p>
-        <p class="repo"><a href="https://github.com/bojro/physical-interp">bojro/physical-interp</a></p>
-      </li>
-      <li>
-        <span class="tag">Causal abstraction &middot; MIB benchmark</span>
-        <h3><a href="https://github.com/bojro/plot-mib-submissions">PLOT-DAS on MIB</a></h3>
-        <p>Independent evaluation of PLOT-DAS, a published method for locating where a language model represents a causal variable, on the MIB Causal Variable Localization track. Confirmed its 10x to 25x compute reduction with a 126-test suite on one 8 GB GPU.</p>
-        <p class="repo"><a href="https://github.com/bojro/plot-mib-submissions">bojro/plot-mib-submissions</a></p>
-      </li>
-      <li>
-        <span class="tag">Causal abstraction &middot; optimal transport</span>
-        <h3><a href="https://github.com/bojro/causal-abstractions">Causal Abstractions OT</a></h3>
-        <p>A script-first framework for causal abstraction experiments, comparing Gromov-Wasserstein, OT, fused GW, and DAS on the same held-out counterfactual splits across symbolic tasks.</p>
-        <p class="repo"><a href="https://github.com/bojro/causal-abstractions">bojro/causal-abstractions</a></p>
-      </li>
-    </ul>
-
-    <h2 id="robotics">Robotics</h2>
-    <ul class="grid">
-      <li>
-        <span class="tag">Reinforcement learning &middot; Isaac Lab &middot; sim-to-real</span>
-        <h3><a href="https://github.com/bojro/aigp-sim">AI Grand Prix: flight policy</a></h3>
-        <p>PPO policy trained across 4,096 parallel Isaac Lab simulations to fly a ten-gate course from projected gate corners and IMU, emitting collective thrust and body rates to a Betaflight controller over MSP. Hardware-in-the-loop testing found a reversed pitch axis and stick commands scaled 0.62x to 2.4x, then the policy was retrained for the link's real 40 Hz. Written up as a team paper in the repo.</p>
-        <p class="repo"><a href="https://github.com/bojro/aigp-sim">bojro/aigp-sim</a></p>
-      </li>
-      <li>
-        <span class="tag">Perception &middot; YOLO pose &middot; Jetson Orin NX</span>
-        <h3><a href="https://github.com/bojro/aigp-perception">AI Grand Prix: gate detector</a></h3>
-        <p>Geometric auto-labelling of all eight gate corners merged with human labels, training the YOLOv8n-pose models that flew. Detected every gate the drone was about to fly through on unseen images, up from 72%, at 36 fps on the aircraft's Jetson.</p>
-        <p class="repo"><a href="https://github.com/bojro/aigp-perception">bojro/aigp-perception</a></p>
-      </li>
-      <li>
-        <span class="tag">Computer vision &middot; ROS 2 &middot; CUAD</span>
-        <h3>Obstacle localization and gesture control</h3>
-        <p>Real-time OAK-D stereo-depth obstacle localization for the IARC competition, georeferenced to world frame via EKF pose and published to ROS 2 at 15 Hz with dropped-frame fallbacks. GestureNet, an MLP over 166 MediaPipe landmark features, maps hand gestures to flight commands for hands-free bringup.</p>
-      </li>
-      <li>
-        <span class="tag">Go &middot; MQTT &middot; PostgreSQL &middot; AWS EC2</span>
-        <h3><a href="https://github.com/bojro/drone-telemetry-gateway">Drone telemetry gateway</a></h3>
-        <p>Edge ingestion from 1,000 simulated drones over MQTT through a hand-built bounded queue and 16-worker pool. Sustained 5,000 writes per second at 3.4 ms average latency on a 2-vCPU EC2 instance, with zero accepted-message loss through a measured database outage.</p>
-        <p class="repo"><a href="https://github.com/bojro/drone-telemetry-gateway">bojro/drone-telemetry-gateway</a></p>
-      </li>
-    </ul>
-
-    <h2 id="projects">Other projects</h2>
-    <ul class="grid">
-      <li>
-        <span class="tag">iOS &middot; React Native &middot; Swift &middot; on-device ML</span>
-        <h3>Gait</h3>
-        <p>An app for horse owners, live on the App Store. On-device motion classification auto-logs ride gaits from 50 Hz accelerometer data. Shipped solo in under four months.</p>
-      </li>
-      <li>
-        <span class="tag">Hackathon &middot; voice agent &middot; YC Startup School</span>
-        <h3><a href="https://github.com/bojro/c0mpiled-11-hackathon">Debrief</a></h3>
-        <p>An AI agent that interviews every applicant like a bar raiser, verifying claims against GitHub while they talk, and hands the recruiter a resume where every highlight is backed by audio. Built in about three hours at c0mpiled-11 in San Francisco.</p>
-        <p class="repo"><a href="https://github.com/bojro/c0mpiled-11-hackathon">bojro/c0mpiled-11-hackathon</a></p>
-      </li>
-      <li>
-        <span class="tag">Real-time AI &middot; healthcare</span>
-        <h3><a href="https://github.com/bojro/MedTranslate">MedTranslate</a></h3>
-        <p>A companion for doctor visits that translates medical jargon into plain language as the conversation happens and builds a structured personal health record from it.</p>
-        <p class="repo"><a href="https://github.com/bojro/MedTranslate">bojro/MedTranslate</a></p>
-      </li>
-      <li>
-        <span class="tag">Chrome extension &middot; TypeScript</span>
-        <h3><a href="https://github.com/bojro/Orderly-AI">Orderly AI</a></h3>
-        <p>AI tab grouping with dynamic category discovery, one-click undo, and aggressive caching to keep API calls low. Never closes a tab.</p>
-        <p class="repo"><a href="https://github.com/bojro/Orderly-AI">bojro/Orderly-AI</a></p>
-      </li>
-      <li>
-        <span class="tag">SwiftUI &middot; iOS</span>
-        <h3><a href="https://github.com/bojro/BigRedBudget">BigRedBudget</a></h3>
-        <p>Turns a Cornell BRB dining balance into a real-time spending decision tool. Local-only.</p>
-        <p class="repo"><a href="https://github.com/bojro/BigRedBudget">bojro/BigRedBudget</a></p>
-      </li>
-      <li>
-        <span class="tag">GitHub Actions &middot; Node</span>
-        <h3><a href="https://github.com/bojro/internship-tracker">Internship tracker</a></h3>
-        <p>Polls community internship trackers every 30 minutes, corroborates across sources, and pushes new postings from a watchlist of 50 firms to Discord, ntfy, and email.</p>
-        <p class="repo"><a href="https://github.com/bojro/internship-tracker">bojro/internship-tracker</a></p>
-      </li>
-    </ul>
-
-    <h2 id="skills">Tools I use</h2>
-    <p><strong>Languages:</strong> Python, Go, C++, Java, TypeScript, JavaScript, SQL, Swift.<br>
-    <strong>ML:</strong> PyTorch, Hugging Face Transformers, reinforcement learning (PPO, skrl), Isaac Lab, YOLO, ONNX, NumPy, scikit-learn.<br>
-    <strong>Systems:</strong> ROS 2, Docker, PostgreSQL, Neo4j, MQTT, Prometheus, AWS EC2, Linux.</p>
-
-    <h2 id="offclock">Off the clock</h2>
-    <ul>
-      <li>At the gym most days.</li>
-      <li>Currently watching <em>Vinland Saga</em>.</li>
-      <li>Zetamac score: 91. Challenges welcome.</li>
-    </ul>
-
-    <footer>
-      Bojro Das &middot; <a href="https://github.com/bojro">GitHub</a> &middot; <a href="https://linkedin.com/in/bojro">LinkedIn</a> &middot; <a href="mailto:bd463@cornell.edu">bd463@cornell.edu</a>
-    </footer>
-  </main>
+  <script>
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var spot = document.getElementById('spot');
+      if (!reduce && window.matchMedia('(pointer: fine)').matches) {
+        window.addEventListener('mousemove', function (e) {
+          spot.style.setProperty('--mx', e.clientX + 'px');
+          spot.style.setProperty('--my', e.clientY + 'px');
+        }, { passive: true });
+      }
+      var links = Array.prototype.slice.call(document.querySelectorAll('nav.side a'));
+      var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+      function spy() {
+        var y = window.scrollY + window.innerHeight * 0.35, idx = 0;
+        sections.forEach(function (s, i) { if (s && s.offsetTop <= y) idx = i; });
+        links.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+      }
+      window.addEventListener('scroll', spy, { passive: true });
+      spy();
+      var els = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && !reduce) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+        }, { rootMargin: '0px 0px -8% 0px' });
+        els.forEach(function (el) { io.observe(el); });
+      } else {
+        els.forEach(function (el) { el.classList.add('in'); });
+      }
+    })();
+  </script>
 </body>
 </html>
