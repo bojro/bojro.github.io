@@ -82,22 +82,82 @@
   <p><em>Bringing mechanistic interpretability to physical AI.</em></p>
   <p>Robot policies, vision-language-action models, and world models make decisions with real consequences, and almost all of them are evaluated by running the policy and counting successes. That says whether a model works on the cases you tried and nothing about why. Physical Interp Labs is about finding the features and circuits that drive an action, and using them to predict, steer, and verify behavior before it reaches hardware. <a href="https://bojro.github.io/physical-interp/">Project page</a> · <a href="https://github.com/bojro/physical-interp">Repository</a></p>
 
-  <p>The starting point is my paper <a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads</a>. Adding a fixed bias to fewer than a tenth of an audio language model's attention heads, with no training, steers which of six speakers it describes on 90.7% to 99.0% of trials, and heads selected on the text-only backbone alone, with no audio involved, do the same on 80.8% to 95.0% of trials.</p>
+  <p>The starting point is my paper <a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads</a>. An audio language model is a text model with an audio encoder attached. Ask it which of several speakers in a recording to describe, and a small set of attention heads makes that choice. Those heads are not new. They are the same heads that do the job in the text-only model the audio model was built from. You can find them by looking at the text model alone, carry them over unchanged, and use them to steer the audio model to whichever speaker you want, with no training.</p>
+
+  <figure>
+    <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram: heads found in a text model carry over to the audio model built on it; the open question is whether the same holds for a vision-language-action model built on a vision-language model." style="width:100%;height:auto;display:block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#161616"/></marker>
+        <marker id="ahm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9a9a9a"/></marker>
+      </defs>
+      <g font-size="13" fill="#6b6b6b">
+        <text x="0" y="16" font-weight="600" fill="#161616">What the paper found</text>
+        <text x="0" y="168" font-weight="600" fill="#161616">The question for physical AI</text>
+      </g>
+      <!-- row 1 -->
+      <g transform="translate(0,30)">
+        <rect x="0" y="0" width="220" height="92" rx="6" fill="#fff" stroke="#161616" stroke-width="1.2"/>
+        <text x="110" y="20" font-size="13" text-anchor="middle" fill="#161616">text language model</text>
+        <g>
+          <rect x="16" y="34" width="188" height="44" rx="3" fill="none" stroke="#d4d4d4"/>
+          <g fill="#e2e2e2"><rect x="24" y="42" width="10" height="10"/><rect x="38" y="42" width="10" height="10"/><rect x="66" y="42" width="10" height="10"/><rect x="80" y="42" width="10" height="10"/><rect x="94" y="42" width="10" height="10"/><rect x="122" y="42" width="10" height="10"/><rect x="136" y="42" width="10" height="10"/><rect x="164" y="42" width="10" height="10"/><rect x="178" y="42" width="10" height="10"/><rect x="24" y="58" width="10" height="10"/><rect x="52" y="58" width="10" height="10"/><rect x="66" y="58" width="10" height="10"/><rect x="94" y="58" width="10" height="10"/><rect x="108" y="58" width="10" height="10"/><rect x="136" y="58" width="10" height="10"/><rect x="150" y="58" width="10" height="10"/><rect x="178" y="58" width="10" height="10"/></g>
+          <g fill="#1d4ed8"><rect x="52" y="42" width="10" height="10"/><rect x="108" y="42" width="10" height="10"/><rect x="150" y="42" width="10" height="10"/><rect x="38" y="58" width="10" height="10"/><rect x="80" y="58" width="10" height="10"/><rect x="122" y="58" width="10" height="10"/><rect x="164" y="58" width="10" height="10"/></g>
+        </g>
+        <path d="M228 46 H 300" stroke="#161616" stroke-width="1.2" marker-end="url(#ah)"/>
+        <text x="264" y="38" font-size="11" text-anchor="middle" fill="#6b6b6b">built on</text>
+        <rect x="310" y="0" width="220" height="92" rx="6" fill="#fff" stroke="#161616" stroke-width="1.2"/>
+        <text x="420" y="20" font-size="13" text-anchor="middle" fill="#161616">audio language model</text>
+        <g transform="translate(310,0)">
+          <rect x="16" y="34" width="188" height="44" rx="3" fill="none" stroke="#d4d4d4"/>
+          <g fill="#e2e2e2"><rect x="24" y="42" width="10" height="10"/><rect x="38" y="42" width="10" height="10"/><rect x="66" y="42" width="10" height="10"/><rect x="80" y="42" width="10" height="10"/><rect x="94" y="42" width="10" height="10"/><rect x="122" y="42" width="10" height="10"/><rect x="136" y="42" width="10" height="10"/><rect x="164" y="42" width="10" height="10"/><rect x="178" y="42" width="10" height="10"/><rect x="24" y="58" width="10" height="10"/><rect x="52" y="58" width="10" height="10"/><rect x="66" y="58" width="10" height="10"/><rect x="94" y="58" width="10" height="10"/><rect x="108" y="58" width="10" height="10"/><rect x="136" y="58" width="10" height="10"/><rect x="150" y="58" width="10" height="10"/><rect x="178" y="58" width="10" height="10"/></g>
+          <g fill="#1d4ed8"><rect x="52" y="42" width="10" height="10"/><rect x="108" y="42" width="10" height="10"/><rect x="150" y="42" width="10" height="10"/><rect x="38" y="58" width="10" height="10"/><rect x="80" y="58" width="10" height="10"/><rect x="122" y="58" width="10" height="10"/><rect x="164" y="58" width="10" height="10"/></g>
+        </g>
+        <text x="545" y="50" font-size="12" fill="#1d4ed8">the heads that</text>
+        <text x="545" y="66" font-size="12" fill="#1d4ed8">pick the speaker</text>
+        <text x="545" y="82" font-size="12" fill="#6b6b6b">were already there</text>
+      </g>
+      <!-- row 2 -->
+      <g transform="translate(0,182)">
+        <rect x="0" y="0" width="220" height="92" rx="6" fill="#fff" stroke="#161616" stroke-width="1.2"/>
+        <text x="110" y="20" font-size="13" text-anchor="middle" fill="#161616">vision-language model</text>
+        <g>
+          <rect x="16" y="34" width="188" height="44" rx="3" fill="none" stroke="#d4d4d4"/>
+          <g fill="#e2e2e2"><rect x="24" y="42" width="10" height="10"/><rect x="38" y="42" width="10" height="10"/><rect x="52" y="42" width="10" height="10"/><rect x="66" y="42" width="10" height="10"/><rect x="80" y="42" width="10" height="10"/><rect x="94" y="42" width="10" height="10"/><rect x="108" y="42" width="10" height="10"/><rect x="122" y="42" width="10" height="10"/><rect x="136" y="42" width="10" height="10"/><rect x="150" y="42" width="10" height="10"/><rect x="164" y="42" width="10" height="10"/><rect x="178" y="42" width="10" height="10"/><rect x="24" y="58" width="10" height="10"/><rect x="38" y="58" width="10" height="10"/><rect x="52" y="58" width="10" height="10"/><rect x="66" y="58" width="10" height="10"/><rect x="80" y="58" width="10" height="10"/><rect x="94" y="58" width="10" height="10"/><rect x="108" y="58" width="10" height="10"/><rect x="122" y="58" width="10" height="10"/><rect x="136" y="58" width="10" height="10"/><rect x="150" y="58" width="10" height="10"/><rect x="164" y="58" width="10" height="10"/><rect x="178" y="58" width="10" height="10"/></g>
+          <text x="110" y="62" font-size="18" text-anchor="middle" fill="#1d4ed8" font-weight="600">?</text>
+        </g>
+        <path d="M228 46 H 300" stroke="#9a9a9a" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ahm)"/>
+        <text x="264" y="38" font-size="11" text-anchor="middle" fill="#6b6b6b">built on</text>
+        <rect x="310" y="0" width="220" height="92" rx="6" fill="#fff" stroke="#161616" stroke-width="1.2"/>
+        <text x="420" y="20" font-size="13" text-anchor="middle" fill="#161616">vision-language-action model</text>
+        <g transform="translate(310,0)">
+          <rect x="16" y="34" width="188" height="44" rx="3" fill="none" stroke="#d4d4d4"/>
+          <g fill="#e2e2e2"><rect x="24" y="42" width="10" height="10"/><rect x="38" y="42" width="10" height="10"/><rect x="52" y="42" width="10" height="10"/><rect x="66" y="42" width="10" height="10"/><rect x="80" y="42" width="10" height="10"/><rect x="94" y="42" width="10" height="10"/><rect x="108" y="42" width="10" height="10"/><rect x="122" y="42" width="10" height="10"/><rect x="136" y="42" width="10" height="10"/><rect x="150" y="42" width="10" height="10"/><rect x="164" y="42" width="10" height="10"/><rect x="178" y="42" width="10" height="10"/><rect x="24" y="58" width="10" height="10"/><rect x="38" y="58" width="10" height="10"/><rect x="52" y="58" width="10" height="10"/><rect x="66" y="58" width="10" height="10"/><rect x="80" y="58" width="10" height="10"/><rect x="94" y="58" width="10" height="10"/><rect x="108" y="58" width="10" height="10"/><rect x="122" y="58" width="10" height="10"/><rect x="136" y="58" width="10" height="10"/><rect x="150" y="58" width="10" height="10"/><rect x="164" y="58" width="10" height="10"/><rect x="178" y="58" width="10" height="10"/></g>
+          <text x="110" y="62" font-size="18" text-anchor="middle" fill="#1d4ed8" font-weight="600">?</text>
+        </g>
+        <text x="545" y="50" font-size="12" fill="#1d4ed8">the heads that</text>
+        <text x="545" y="66" font-size="12" fill="#1d4ed8">drive the action:</text>
+        <text x="545" y="82" font-size="12" fill="#6b6b6b">inherited too?</text>
+      </g>
+    </svg>
+    <figcaption>Blue squares are attention heads. In the paper, the heads that choose the speaker in the audio model turn out to be the ones already doing that job in its text backbone. Physical Interp Labs asks the same question of models that act.</figcaption>
+  </figure>
+
+  <p>That is the thread Physical Interp Labs pulls on. Vision-language-action models are built the same way, on top of a vision-language backbone with an action head attached. If the components that drive an action are inherited from the backbone, they can be found by studying the backbone, and a policy can be read, and possibly corrected, before it ever flies.</p>
 
   <figure class="framed">
     <img src="img/inherited-heads.png" alt="Diagram of the Inherited Heads task and intervention: six speech segments, a query naming one, and a bias added to attention logits on the target span.">
-    <figcaption>The task and the edit. Six speakers read in turn; the model is asked about one. A constant is added to selected heads' attention logits inside the target segment and subtracted elsewhere. From the paper.</figcaption>
+    <figcaption>The experiment from the paper. Six speakers read in turn and the model is asked about one. The edit nudges a chosen set of heads toward that speaker's span and away from the others. No labels, no gradients, a handful of forward passes.</figcaption>
   </figure>
 
   <p class="cite">Bojro Das. <a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads: Audio language models track speakers with their text backbone's attention, and an attention-mass ranking retrieves a different set</a>. arXiv:2609.14174, September 2026. Sole author. <a href="https://github.com/bojro/inherited-heads">Code and results</a>.</p>
 
   <h2>Robotics</h2>
-  <p>In September 2026 my team was one of 15 selected from over 3,000 for the in-person qualifier of the <strong>Anduril AI Grand Prix</strong>, an autonomous drone race. I trained the PPO flight policy in Isaac Lab across 4,096 parallel simulations, built the onboard gate detector that runs at 36 fps on the drone's Jetson, and found the sim-to-real faults through hardware-in-the-loop testing: a reversed pitch axis, stick commands scaled 0.62x to 2.4x, and a control link running at a different rate than the policy assumed.</p>
+  <p>In September 2026 my team was one of 15 selected from over 3,000 for the in-person qualifier of the <strong>Anduril AI Grand Prix</strong>, an autonomous drone race. I trained the flight policy with reinforcement learning in Isaac Lab, built the gate detector that runs on the drone's Jetson, and found the sim-to-real faults through hardware-in-the-loop testing: a reversed pitch axis, mis-scaled stick commands, and a control link running at a different rate than the policy assumed. Every one of those lived inside the policy's inputs and outputs, which is a large part of why I care about reading networks before flying them.</p>
 
   <div class="two">
     <figure>
       <video src="img/race-pov.mp4" poster="img/race-still.jpg" autoplay muted loop playsinline aria-label="The flight policy racing through gates in Isaac Sim"></video>
-      <figcaption>The policy racing in Isaac Sim, ten seconds from a run that passed 38 gates in 58 s.</figcaption>
+      <figcaption>The policy racing in Isaac Sim, from the drone's own camera. Green: the corners the policy is fed. Cyan: the detector's output.</figcaption>
     </figure>
     <figure>
       <img src="img/gates.jpg" alt="Frame from the drone's camera with gate corners detected and numbered">
@@ -111,7 +171,7 @@
   <ul class="plain">
     <li>
       <h3><a href="https://github.com/bojro/inherited-heads">Inherited Heads</a></h3>
-      <p>Three audio language models analysed at head level against their text backbones. The harness swept 12,000 configurations over 7B to 13B models in 4-bit on consumer GPUs, with a build check that rejects any figure not traceable to a run.</p>
+      <p>Paper, code, and results. Three audio language models analysed at head level against their text backbones, with every figure in the paper traceable to a logged run.</p>
     </li>
     <li>
       <h3><a href="https://github.com/bojro/aigp-sim">AI Grand Prix: flight policy</a> and <a href="https://github.com/bojro/aigp-perception">gate detector</a></h3>
@@ -119,7 +179,7 @@
     </li>
     <li>
       <h3><a href="https://github.com/bojro/plot-mib-submissions">PLOT-DAS on the MIB benchmark</a></h3>
-      <p>Independent evaluation of a published method for locating where a language model represents a causal variable. Confirmed its 10x to 25x compute reduction with a 126-test suite on one 8 GB GPU.</p>
+      <p>Independent evaluation of a published method for locating where a language model represents a causal variable, run against the public leaderboard on a single consumer GPU.</p>
     </li>
     <li>
       <h3><a href="https://github.com/bojro/causal-abstractions">Causal Abstractions OT</a></h3>
