@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bojro Das</title>
+  <meta name="description" content="Bojro Das. Founder of Physical Interp Labs, bringing mechanistic interpretability to physical AI. Mathematics and Computer Science at Cornell, class of 2028. Author of Inherited Heads (arXiv:2609.14174).">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231f4e79'/%3E%3Ctext x='32' y='43' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='700' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #1a1a1a;
+      --muted: #5a5a5a;
+      --rule: #e4e4e4;
+      --accent: #1f4e79;
+      --panel: #f3f6fa;
+      --card: #fafafa;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111111;
+        --fg: #e8e8e8;
+        --muted: #a3a3a3;
+        --rule: #2c2c2c;
+        --accent: #8fb6dc;
+        --panel: #181d24;
+        --card: #181818;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 40px 16px 64px; }
+    a { color: var(--accent); }
+    p { margin: 0 0 14px; }
+    ul { padding-left: 22px; margin: 0 0 14px; }
+    li { margin-bottom: 8px; }
+    h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 4px; }
+    h2 {
+      font-size: 1.25rem;
+      margin: 44px 0 14px;
+      padding-top: 18px;
+      border-top: 1px solid var(--rule);
+    }
+    h3 { font-size: 1.05rem; margin: 0 0 4px; }
+    .top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px 16px;
+      margin-bottom: 28px;
+    }
+    .top .sub { color: var(--muted); margin: 0; }
+    .links { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.95rem; }
+    .lead {
+      background: var(--panel);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 20px 22px;
+      margin-bottom: 8px;
+    }
+    .lead .kicker {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .lead h2 { border: 0; padding: 0; margin: 0 0 2px; font-size: 1.5rem; }
+    .lead .one { font-size: 1.1rem; margin-bottom: 12px; }
+    .paper {
+      border-top: 1px solid var(--rule);
+      margin-top: 14px;
+      padding-top: 14px;
+    }
+    .paper .t { font-weight: 600; margin-bottom: 2px; }
+    .paper .m { font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }
+    .paper p:last-child { margin-bottom: 0; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin: 0 0 14px;
+      padding: 0;
+      list-style: none;
+    }
+    .grid li {
+      margin: 0;
+      padding: 14px 16px;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      background: var(--card);
+    }
+    .grid .tag {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .grid p { font-size: 0.95rem; margin: 0; }
+    .grid .repo { font-size: 0.85rem; margin-top: 6px; }
+    .hl { list-style: none; padding: 0; }
+    .hl li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--rule);
+      margin: 0;
+    }
+    .hl li:last-child { border-bottom: 0; }
+    .hl .when {
+      display: inline-block;
+      min-width: 120px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .note { color: var(--muted); font-size: 0.95rem; }
+    footer {
+      margin-top: 48px;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+      .hl .when { display: block; min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="top">
+      <div>
+        <h1>Bojro Das</h1>
+        <p class="sub">Mathematics &amp; Computer Science, Cornell University, class of 2028</p>
+      </div>
+      <nav class="links">
+        <a href="https://github.com/bojro">GitHub</a>
+        <a href="https://linkedin.com/in/bojro">LinkedIn</a>
+        <a href="https://arxiv.org/a/das_b_2">arXiv</a>
+        <a href="mailto:bd463@cornell.edu">Email</a>
+      </nav>
+    </div>
+
+    <section class="lead">
+      <div class="kicker">Now building</div>
+      <h2><a href="https://bojro.github.io/physical-interp/">Physical Interp Labs</a></h2>
+      <p class="one">Bringing mechanistic interpretability to physical AI.</p>
+      <p>Early-stage research on the internals of neural networks that act in the physical world: robot policies, vision-language-action models, and world models for robotics and drones. The goal is to find the features and circuits that drive an action, and to use them to predict, steer, and verify behavior before it reaches hardware. <a href="https://bojro.github.io/physical-interp/">Project page</a> &middot; <a href="https://github.com/bojro/physical-interp">Repository</a></p>
+      <div class="paper">
+        <div class="t"><a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads: Audio language models track speakers with their text backbone's attention, and an attention-mass ranking retrieves a different set</a></div>
+        <div class="m">Bojro Das. arXiv:2609.14174, September 2026. Sole-authored preprint. <a href="https://github.com/bojro/inherited-heads">Code and results</a></div>
+        <p>Adding a fixed bias to fewer than a tenth of an audio language model's attention heads, with no training, steers which of six speakers it describes on 90.7% to 99.0% of trials, and heads selected on the text-only backbone alone, with no audio involved, do the same on 80.8% to 95.0% of trials.</p>
+      </div>
+    </section>
+
+    <h2 id="about">About</h2>
+    <p>I study Mathematics and Computer Science at Cornell University (class of 2028). I work on mechanistic interpretability at Cornell's Math + AI Lab, where I wrote Inherited Heads, and on autonomy as a software engineer on <strong>Cornell University Autonomous Drone (CUAD)</strong>, where I built the real-time stereo-depth obstacle-localization pipeline for the IARC competition and a gesture-to-flight-command classifier, both deployed as ROS 2 nodes.</p>
+    <p>Before Cornell I spent years in VEX Robotics with team 871X, and led the team to the 1st seed at the VEX Robotics World Championship. Robotics and interpretability are the two things I have spent the most time on. Physical Interp Labs is where they meet.</p>
+    <p>In summer 2026 I was a software engineer intern at Global Key Advisors in San Francisco, where I owned the Python pipeline classifying 1.4M+ SEC filings into 101 event categories, raised GPU utilization from 34% to 96% with batched PyTorch encoding, and built a Neo4j knowledge graph with 1.5M+ relationships behind a citation-verified chatbot.</p>
+
+    <h2 id="highlights">Highlights</h2>
+    <ul class="hl">
+      <li><span class="when">September 2026</span> Published <a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads</a> on arXiv as sole author.</li>
+      <li><span class="when">September 2026</span> <strong>Anduril AI Grand Prix</strong>: one of 15 teams selected from over 3,000 for the in-person autonomous drone racing qualifier in Santa Ana. Trained the PPO flight policy, fixed the sim-to-real faults through hardware-in-the-loop testing, and built the onboard gate detector.</li>
+      <li><span class="when">August 2026</span> Attended <strong>NEMI 2026</strong>, the third New England Mechanistic Interpretability Workshop, at Boston University.</li>
+      <li><span class="when">2026</span> Participant in <strong>Y Combinator Startup School</strong>. Built <a href="https://github.com/bojro/c0mpiled-11-hackathon">Debrief</a> at the c0mpiled-11 Startup School Hackathon in San Francisco.</li>
+      <li><span class="when">2026</span> Shipped <strong>Gait</strong>, an iOS app for horse owners, solo to the App Store in under four months, reaching a $2.4K ARR run rate within two weeks of launch.</li>
+      <li><span class="when">VEX Robotics</span> Led team 871X to the 1st seed at the VEX Robotics World Championship.</li>
+    </ul>
+
+    <h2 id="research">Research</h2>
+    <ul class="grid">
+      <li>
+        <span class="tag">Mechanistic interpretability &middot; audio language models</span>
+        <h3><a href="https://arxiv.org/abs/2609.14174v1">Inherited Heads</a></h3>
+        <p>Three audio language models (Qwen2-Audio-7B, Ultravox-8B, SALMONN-13B) analysed at head level against their text backbones. The PyTorch harness swept 12,000 configurations in 4-bit on consumer GPUs, with a build check that rejects any figure not traceable to a run.</p>
+        <p class="repo"><a href="https://github.com/bojro/inherited-heads">bojro/inherited-heads</a></p>
+      </li>
+      <li>
+        <span class="tag">Mechanistic interpretability &middot; physical AI</span>
+        <h3><a href="https://bojro.github.io/physical-interp/">Physical Interp Labs</a></h3>
+        <p>Applying feature discovery, circuit analysis, and steering to robot policies, VLA models, and world models. Planned and ongoing work, not results.</p>
+        <p class="repo"><a href="https://github.com/bojro/physical-interp">bojro/physical-interp</a></p>
+      </li>
+      <li>
+        <span class="tag">Causal abstraction &middot; MIB benchmark</span>
+        <h3><a href="https://github.com/bojro/plot-mib-submissions">PLOT-DAS on MIB</a></h3>
+        <p>Independent evaluation of PLOT-DAS, a published method for locating where a language model represents a causal variable, on the MIB Causal Variable Localization track. Confirmed its 10x to 25x compute reduction with a 126-test suite on one 8 GB GPU.</p>
+        <p class="repo"><a href="https://github.com/bojro/plot-mib-submissions">bojro/plot-mib-submissions</a></p>
+      </li>
+      <li>
+        <span class="tag">Causal abstraction &middot; optimal transport</span>
+        <h3><a href="https://github.com/bojro/causal-abstractions">Causal Abstractions OT</a></h3>
+        <p>A script-first framework for causal abstraction experiments, comparing Gromov-Wasserstein, OT, fused GW, and DAS on the same held-out counterfactual splits across symbolic tasks.</p>
+        <p class="repo"><a href="https://github.com/bojro/causal-abstractions">bojro/causal-abstractions</a></p>
+      </li>
+    </ul>
+
+    <h2 id="robotics">Robotics</h2>
+    <ul class="grid">
+      <li>
+        <span class="tag">Reinforcement learning &middot; Isaac Lab &middot; sim-to-real</span>
+        <h3><a href="https://github.com/bojro/aigp-sim">AI Grand Prix: flight policy</a></h3>
+        <p>PPO policy trained across 4,096 parallel Isaac Lab simulations to fly a ten-gate course from projected gate corners and IMU, emitting collective thrust and body rates to a Betaflight controller over MSP. Hardware-in-the-loop testing found a reversed pitch axis and stick commands scaled 0.62x to 2.4x, then the policy was retrained for the link's real 40 Hz. Written up as a team paper in the repo.</p>
+        <p class="repo"><a href="https://github.com/bojro/aigp-sim">bojro/aigp-sim</a></p>
+      </li>
+      <li>
+        <span class="tag">Perception &middot; YOLO pose &middot; Jetson Orin NX</span>
+        <h3><a href="https://github.com/bojro/aigp-perception">AI Grand Prix: gate detector</a></h3>
+        <p>Geometric auto-labelling of all eight gate corners merged with human labels, training the YOLOv8n-pose models that flew. Detected every gate the drone was about to fly through on unseen images, up from 72%, at 36 fps on the aircraft's Jetson.</p>
+        <p class="repo"><a href="https://github.com/bojro/aigp-perception">bojro/aigp-perception</a></p>
+      </li>
+      <li>
+        <span class="tag">Computer vision &middot; ROS 2 &middot; CUAD</span>
+        <h3>Obstacle localization and gesture control</h3>
+        <p>Real-time OAK-D stereo-depth obstacle localization for the IARC competition, georeferenced to world frame via EKF pose and published to ROS 2 at 15 Hz with dropped-frame fallbacks. GestureNet, an MLP over 166 MediaPipe landmark features, maps hand gestures to flight commands for hands-free bringup.</p>
+      </li>
+      <li>
+        <span class="tag">Go &middot; MQTT &middot; PostgreSQL &middot; AWS EC2</span>
+        <h3><a href="https://github.com/bojro/drone-telemetry-gateway">Drone telemetry gateway</a></h3>
+        <p>Edge ingestion from 1,000 simulated drones over MQTT through a hand-built bounded queue and 16-worker pool. Sustained 5,000 writes per second at 3.4 ms average latency on a 2-vCPU EC2 instance, with zero accepted-message loss through a measured database outage.</p>
+        <p class="repo"><a href="https://github.com/bojro/drone-telemetry-gateway">bojro/drone-telemetry-gateway</a></p>
+      </li>
+    </ul>
+
+    <h2 id="projects">Other projects</h2>
+    <ul class="grid">
+      <li>
+        <span class="tag">iOS &middot; React Native &middot; Swift &middot; on-device ML</span>
+        <h3>Gait</h3>
+        <p>An app for horse owners, live on the App Store. On-device motion classification auto-logs ride gaits from 50 Hz accelerometer data. Shipped solo in under four months.</p>
+      </li>
+      <li>
+        <span class="tag">Hackathon &middot; voice agent &middot; YC Startup School</span>
+        <h3><a href="https://github.com/bojro/c0mpiled-11-hackathon">Debrief</a></h3>
+        <p>An AI agent that interviews every applicant like a bar raiser, verifying claims against GitHub while they talk, and hands the recruiter a resume where every highlight is backed by audio. Built in about three hours at c0mpiled-11 in San Francisco.</p>
+        <p class="repo"><a href="https://github.com/bojro/c0mpiled-11-hackathon">bojro/c0mpiled-11-hackathon</a></p>
+      </li>
+      <li>
+        <span class="tag">Real-time AI &middot; healthcare</span>
+        <h3><a href="https://github.com/bojro/MedTranslate">MedTranslate</a></h3>
+        <p>A companion for doctor visits that translates medical jargon into plain language as the conversation happens and builds a structured personal health record from it.</p>
+        <p class="repo"><a href="https://github.com/bojro/MedTranslate">bojro/MedTranslate</a></p>
+      </li>
+      <li>
+        <span class="tag">Chrome extension &middot; TypeScript</span>
+        <h3><a href="https://github.com/bojro/Orderly-AI">Orderly AI</a></h3>
+        <p>AI tab grouping with dynamic category discovery, one-click undo, and aggressive caching to keep API calls low. Never closes a tab.</p>
+        <p class="repo"><a href="https://github.com/bojro/Orderly-AI">bojro/Orderly-AI</a></p>
+      </li>
+      <li>
+        <span class="tag">SwiftUI &middot; iOS</span>
+        <h3><a href="https://github.com/bojro/BigRedBudget">BigRedBudget</a></h3>
+        <p>Turns a Cornell BRB dining balance into a real-time spending decision tool. Local-only.</p>
+        <p class="repo"><a href="https://github.com/bojro/BigRedBudget">bojro/BigRedBudget</a></p>
+      </li>
+      <li>
+        <span class="tag">GitHub Actions &middot; Node</span>
+        <h3><a href="https://github.com/bojro/internship-tracker">Internship tracker</a></h3>
+        <p>Polls community internship trackers every 30 minutes, corroborates across sources, and pushes new postings from a watchlist of 50 firms to Discord, ntfy, and email.</p>
+        <p class="repo"><a href="https://github.com/bojro/internship-tracker">bojro/internship-tracker</a></p>
+      </li>
+    </ul>
+
+    <h2 id="skills">Tools I use</h2>
+    <p><strong>Languages:</strong> Python, Go, C++, Java, TypeScript, JavaScript, SQL, Swift.<br>
+    <strong>ML:</strong> PyTorch, Hugging Face Transformers, reinforcement learning (PPO, skrl), Isaac Lab, YOLO, ONNX, NumPy, scikit-learn.<br>
+    <strong>Systems:</strong> ROS 2, Docker, PostgreSQL, Neo4j, MQTT, Prometheus, AWS EC2, Linux.</p>
+
+    <footer>
+      Bojro Das &middot; <a href="https://github.com/bojro">GitHub</a> &middot; <a href="https://linkedin.com/in/bojro">LinkedIn</a> &middot; <a href="mailto:bd463@cornell.edu">bd463@cornell.edu</a>
+    </footer>
+  </main>
+</body>
+</html>
